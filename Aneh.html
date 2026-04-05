@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Precise Layout</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 900px;
+    margin: 0 auto;
+    border: 2px solid black;
+    display: grid;
+    grid-template-rows: 60px 60px 200px 60px 60px;
+    grid-template-columns: 100px 100px 100px 100px 500px;
+    gap: 2px;
+    background-color: black;
+  }
+  /* Row 1: single yellow block spanning all columns */
+  .row1 {
+    grid-column: 1 / 6;
+    background-color: yellow;
+  }
+  /* Row 2: 4 yellow blocks + 1 red block */
+  .row2-1, .row2-2, .row2-3, .row2-4 {
+    background-color: yellow;
+  }
+  .row2-5 {
+    background-color: red;
+  }
+  /* Row 3: single red block spanning all columns */
+  .row3 {
+    grid-column: 1 / 6;
+    background-color: red;
+  }
+  /* Row 4: 4 yellow blocks */
+  .row4-1, .row4-2, .row4-3, .row4-4 {
+    background-color: yellow;
+  }
+  /* Row 5: 2 red blocks on edges + 3 yellow blocks in middle */
+  .row5-1, .row5-5 {
+    background-color: red;
+  }
+  .row5-2, .row5-3, .row5-4 {
+    background-color: yellow;
+  }
+  /* All blocks have black border */
+  .container > div {
+    border: 2px solid black;
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Row 1 -->
+    <div class="row1"></div>
+    <!-- Row 2 -->
+    <div class="row2-1"></div>
+    <div class="row2-2"></div>
+    <div class="row2-3"></div>
+    <div class="row2-4"></div>
+    <div class="row2-5"></div>
+    <!-- Row 3 -->
+    <div class="row3"></div>
+    <!-- Row 4 -->
+    <div class="row4-1"></div>
+    <div class="row4-2"></div>
+    <div class="row4-3"></div>
+    <div class="row4-4"></div>
+    <div></div> <!-- empty cell to fill grid -->
+    <!-- Row 5 -->
+    <div class="row5-1"></div>
+    <div class="row5-2"></div>
+    <div class="row5-3"></div>
+    <div class="row5-4"></div>
+    <div class="row5-5"></div>
+  </div>
+</body>
+</html>
