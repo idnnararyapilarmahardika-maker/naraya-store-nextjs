@@ -1,91 +1,960 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pekerjaan Rumah - 4 Tugas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
     <style>
-        #Kotak1{
-            width: 100px;
-            height: 100px;
-            border:2px solid black;
-            background-color: blue;
-            float: left;
+        body {
+            background: #050505;
+            font-family: 'Inter', sans-serif;
         }
-        #Kotak2{
-            width: 200px;
-            height: 100px;
-            border: 1px solid red;
-            float: left;
-        }
-        #Kotak4{
-            width: 70px;
-            height: 70px;
-            border: 2px solid red;
-            background-color: yellow;
-        }
-        #Kotak3{
-            width: 50px;
-            height: 50px;
-            border: 2px solid red;
-            background-color: green;
-        }
-        #Kotak5{
-            width: 170px;
-            height: 80px;
-            border: 2px solid violet;
-        }
-        #Kotak6{
-            width: 140px;
-            height: 60px;
-            border: 2px solid ;
-        }
-        #Kotak7{
-            width: 420px;
-            height: 70px;
-            border: 2px solid red;
 
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
-        #Kotak8{
-            width: 100px;
-            height: 40px;
-            border: 2px solid red;
-            float: left;
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .clear{
-            clear: both;
+
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-2 {
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glow-indigo {
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+                filter: blur(100px);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+                filter: blur(120px);
+            }
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-float {
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        .tab-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: #fff;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            border-radius: 2px;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .form-input::placeholder {
+            color: #525252;
+        }
+
+        .schedule-table th {
+            background: rgba(99, 102, 241, 0.15);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .schedule-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .schedule-table tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            z-index: 1000;
+            transform: translateY(120%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .custom-check {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .custom-check:checked {
+            background: #6366f1;
+            border-color: #6366f1;
+        }
+
+        .custom-radio {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .custom-radio:checked {
+            border-color: #6366f1;
+            background: transparent;
+            box-shadow: inset 0 0 0 4px #6366f1;
         }
     </style>
 </head>
-<body>
-    <div id="Kotak1">
-        <div id="Kotak4">
-            <div id="Kotak3">
 
+<body class="text-white min-h-screen relative overflow-x-hidden">
+
+    <!-- Background Blobs -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-indigo-600/20 animate-pulse-glow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-purple-600/15 animate-pulse-glow"
+            style="animation-delay: 3s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-cyan-500/10 animate-pulse-glow"
+            style="animation-delay: 5s;"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8">
+
+        <!-- Header -->
+        <header class="text-center mb-10 animate-fade-in-up">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-xs font-medium text-neutral-400 mb-6">
+                <iconify-icon icon="mdi:book-open-page-variant" class="text-indigo-400"></iconify-icon>
+                Pekerjaan Rumah — 4 Tugas
             </div>
-        </div>
-    </div>
-    <div id="Kotak2">
-        <div id="Kotak5">
-            <div id="Kotak6">
-                
+            <h1 class="text-3xl sm:text-5xl font-semibold tracking-tighter leading-tight">
+                <span class="gradient-text-2">Tugas</span>
+                <span class="gradient-text"> HTML</span>
+            </h1>
+            <p class="text-neutral-500 text-sm sm:text-base mt-3 font-light">Lengkapi semua tugas dengan membuka tab di
+                bawah ini</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 animate-fade-in-up"
+            style="animation-delay: 0.15s;">
+            <button
+                class="tab-btn active glass-panel rounded-xl px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium text-neutral-400"
+                onclick="switchTab('pr1', this)">
+                <iconify-icon icon="mdi:account-edit" class="mr-1 align-middle"></iconify-icon>
+                PR1 · Profil
+            </button>
+            <button
+                class="tab-btn glass-panel rounded-xl px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium text-neutral-400"
+                onclick="switchTab('pr2', this)">
+                <iconify-icon icon="mdi:web" class="mr-1 align-middle"></iconify-icon>
+                PR2 · Halaman Kedua
+            </button>
+            <button
+                class="tab-btn glass-panel rounded-xl px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium text-neutral-400"
+                onclick="switchTab('pr3', this)">
+                <iconify-icon icon="mdi:calendar-clock" class="mr-1 align-middle"></iconify-icon>
+                PR3 · Jadwal
+            </button>
+            <button
+                class="tab-btn glass-panel rounded-xl px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-medium text-neutral-400"
+                onclick="switchTab('bonus', this)">
+                <iconify-icon icon="mdi:star-circle" class="mr-1 align-middle text-amber-400"></iconify-icon>
+                BONUS · Form
+            </button>
+        </nav>
+
+        <!-- ==================== PR1: LENGKAPI PROFIL ==================== -->
+        <section id="tab-pr1" class="tab-content animate-fade-in-up" style="animation-delay: 0.3s;">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 glow-indigo">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center">
+                        <iconify-icon icon="mdi:account-circle" class="text-indigo-400 text-xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-semibold">PR1 — Lengkapi Profil</h2>
+                        <p class="text-neutral-500 text-xs">List · Form · Download Button · 35 menit</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gradient-to-r from-indigo-500/30 via-transparent to-transparent my-5"></div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Left: List & Info -->
+                    <div>
+                        <h3 class="text-sm font-medium text-neutral-300 mb-3 flex items-center gap-2">
+                            <iconify-icon icon="mdi:format-list-bulleted" class="text-indigo-400"></iconify-icon>
+                            Data Pribadi (List)
+                        </h3>
+                        <ul class="space-y-2 text-sm font-light text-neutral-400">
+                            <li class="flex items-start gap-2">
+                                <span class="text-indigo-400 mt-0.5">●</span>
+                                <span><strong class="text-neutral-200 font-medium">Nama:</strong> Nararya Pilar
+                                    Mahardika</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-indigo-400 mt-0.5">●</span>
+                                <span><strong class="text-neutral-200 font-medium">Kelas:</strong> IX</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-indigo-400 mt-0.5">●</span>
+                                <span><strong class="text-neutral-200 font-medium">Sekolah:</strong> PKBM Generasi
+                                    Juara</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-indigo-400 mt-0.5">●</span>
+                                <span><strong class="text-neutral-200 font-medium">Hobi:</strong> Coding, Desain Grafis,
+                                    Fotografi</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-indigo-400 mt-0.5">●</span>
+                                <span><strong class="text-neutral-200 font-medium">Email:</strong>
+                                    nararya.pilar@email.com</span>
+                            </li>
+                        </ul>
+
+                        <h3 class="text-sm font-medium text-neutral-300 mb-3 mt-6 flex items-center gap-2">
+                            <iconify-icon icon="mdi:numeric-1-box" class="text-purple-400"></iconify-icon>
+                            Keahlian (Ordered List)
+                        </h3>
+                        <ol class="space-y-2 text-sm font-light text-neutral-400 list-decimal list-inside">
+                            <li>HTML & CSS Dasar</li>
+                            <li>JavaScript Fundamental</li>
+                            <li>Framework Tailwind CSS</li>
+                            <li>Desain UI/UX dengan Figma</li>
+                            <li>Version Control dengan Git</li>
+                        </ol>
+                    </div>
+
+                    <!-- Right: Form & Download -->
+                    <div>
+                        <h3 class="text-sm font-medium text-neutral-300 mb-3 flex items-center gap-2">
+                            <iconify-icon icon="mdi:pencil-box" class="text-indigo-400"></iconify-icon>
+                            Form Lengkapi Profil
+                        </h3>
+                        <form id="formPR1" onsubmit="handlePR1(event)" class="space-y-3">
+                            <div>
+                                <label class="text-xs text-neutral-500 mb-1 block">Nama Lengkap</label>
+                                <input type="text" class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                    placeholder="Masukkan nama...">
+                            </div>
+                            <div>
+                                <label class="text-xs text-neutral-500 mb-1 block">Kelas</label>
+                                <input type="text" class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                    placeholder="Contoh: IX">
+                            </div>
+                            <div>
+                                <label class="text-xs text-neutral-500 mb-1 block">Alamat Email</label>
+                                <input type="email" class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                    placeholder="email@contoh.com">
+                            </div>
+                            <div>
+                                <label class="text-xs text-neutral-500 mb-1 block">Tentang Saya</label>
+                                <textarea class="form-input w-full rounded-lg px-4 py-2.5 text-sm resize-none" rows="3"
+                                    placeholder="Ceritakan singkat tentang dirimu..."></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full py-2.5 rounded-lg bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300">
+                                Simpan Profil
+                            </button>
+                        </form>
+
+                        <div class="mt-4">
+                            <button onclick="handleDownload()"
+                                class="w-full py-2.5 rounded-lg border border-indigo-500/30 text-indigo-400 text-sm font-medium hover:bg-indigo-500/10 transition-all duration-300 flex items-center justify-center gap-2">
+                                <iconify-icon icon="mdi:download" class="text-base"></iconify-icon>
+                                Download CV (Profil)
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- ==================== PR2: HALAMAN KEDUA ==================== -->
+        <section id="tab-pr2" class="tab-content hidden animate-fade-in-up">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 glow-purple">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center">
+                        <iconify-icon icon="mdi:file-document-multiple" class="text-purple-400 text-xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-semibold">PR2 — Halaman Kedua</h2>
+                        <p class="text-neutral-500 text-xs">Halaman Web · Link Navigasi · 25 menit</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gradient-to-r from-purple-500/30 via-transparent to-transparent my-5"></div>
+
+                <div class="rounded-xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                    <div class="flex items-center justify-between px-5 py-3 border-b border-white/5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                        </div>
+                        <div class="text-xs text-neutral-500 font-mono">halaman-kedua.html</div>
+                        <div></div>
+                    </div>
+
+                    <div class="p-6 sm:p-8">
+                        <div class="flex items-center gap-2 text-xs text-neutral-500 mb-4">
+                            <a href="#"
+                                onclick="switchTab('pr1', document.querySelectorAll('.tab-btn')[0]); return false;"
+                                class="text-indigo-400 hover:underline flex items-center gap-1">
+                                <iconify-icon icon="mdi:home" class="text-sm"></iconify-icon> Beranda
+                            </a>
+                            <span>/</span>
+                            <span class="text-neutral-400">Tentang Saya</span>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight mb-4 gradient-text-2">Tentang Saya
+                        </h3>
+                        <p class="text-neutral-400 text-sm font-light leading-relaxed mb-6">
+                            Halo! Saya Nararya Pilar Mahardika, siswa kelas IX di PKBM Generasi Juara.
+                            Saya memiliki ketertarikan yang besar di bidang pengembangan web dan desain.
+                            Saya percaya bahwa teknologi dapat mengubah dunia menjadi lebih baik, dan saya
+                            ingin menjadi bagian dari perubahan tersebut.
+                        </p>
+
+                        <div class="grid sm:grid-cols-3 gap-4 mb-6">
+                            <a href="https://www.w3schools.com/html/" target="_blank"
+                                class="group rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:bg-white/[0.05] hover:border-indigo-500/30 transition-all duration-300">
+                                <iconify-icon icon="mdi:language-html5"
+                                    class="text-3xl text-orange-400 mb-2"></iconify-icon>
+                                <h4
+                                    class="text-sm font-medium text-neutral-200 group-hover:text-white transition-colors">
+                                    Belajar HTML</h4>
+                                <p class="text-xs text-neutral-500 mt-1">w3schools.com</p>
+                                <div class="flex items-center gap-1 text-xs text-indigo-400 mt-2">
+                                    Kunjungi <iconify-icon icon="mdi:arrow-right"
+                                        class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </div>
+                            </a>
+                            <a href="https://developer.mozilla.org/id/" target="_blank"
+                                class="group rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:bg-white/[0.05] hover:border-purple-500/30 transition-all duration-300">
+                                <iconify-icon icon="mdi:language-css3"
+                                    class="text-3xl text-blue-400 mb-2"></iconify-icon>
+                                <h4
+                                    class="text-sm font-medium text-neutral-200 group-hover:text-white transition-colors">
+                                    MDN Web Docs</h4>
+                                <p class="text-xs text-neutral-500 mt-1">developer.mozilla.org</p>
+                                <div class="flex items-center gap-1 text-xs text-purple-400 mt-2">
+                                    Kunjungi <iconify-icon icon="mdi:arrow-right"
+                                        class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </div>
+                            </a>
+                            <a href="https://tailwindcss.com/" target="_blank"
+                                class="group rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:bg-white/[0.05] hover:border-cyan-500/30 transition-all duration-300">
+                                <iconify-icon icon="mdi:tailwind" class="text-3xl text-cyan-400 mb-2"></iconify-icon>
+                                <h4
+                                    class="text-sm font-medium text-neutral-200 group-hover:text-white transition-colors">
+                                    Tailwind CSS</h4>
+                                <p class="text-xs text-neutral-500 mt-1">tailwindcss.com</p>
+                                <div class="flex items-center gap-1 text-xs text-cyan-400 mt-2">
+                                    Kunjungi <iconify-icon icon="mdi:arrow-right"
+                                        class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#"
+                                onclick="switchTab('pr1', document.querySelectorAll('.tab-btn')[0]); return false;"
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-500/15 text-indigo-400 text-xs font-medium hover:bg-indigo-500/25 transition-all">
+                                <iconify-icon icon="mdi:arrow-left"></iconify-icon> Kembali ke Profil
+                            </a>
+                            <a href="#"
+                                onclick="switchTab('pr3', document.querySelectorAll('.tab-btn')[2]); return false;"
+                                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 text-neutral-400 text-xs font-medium hover:bg-white/10 transition-all">
+                                Lihat Jadwal <iconify-icon icon="mdi:arrow-right"></iconify-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PR3: TABEL JADWAL ==================== -->
+        <section id="tab-pr3" class="tab-content hidden animate-fade-in-up">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 glow-indigo">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/15 flex items-center justify-center">
+                        <iconify-icon icon="mdi:table-clock" class="text-cyan-400 text-xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-semibold">PR3 — Tabel Jadwal</h2>
+                        <p class="text-neutral-500 text-xs">Tabel HTML · Jadwal Pelajaran · 30 menit</p>
+                    </div>
+                </div>
+                <div class="w-full h-px bg-gradient-to-r from-cyan-500/30 via-transparent to-transparent my-5"></div>
+
+                <div class="overflow-x-auto rounded-xl border border-white/5">
+                    <table class="schedule-table w-full text-sm">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider rounded-tl-xl">
+                                    Waktu</th>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider">
+                                    Senin</th>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider">
+                                    Selasa</th>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider">
+                                    Rabu</th>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider">
+                                    Kamis</th>
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-medium text-indigo-300 uppercase tracking-wider rounded-tr-xl">
+                                    Jumat</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-neutral-400 font-light">
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:weather-sunny"
+                                        class="text-amber-400 mr-1 align-middle"></iconify-icon>
+                                    07:00 – 08:30
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-300 text-xs">Matematika</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 text-xs">B.
+                                        Indonesia</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">IPA</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-green-500/10 text-green-300 text-xs">B.
+                                        Inggris</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 text-xs">PKN</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:weather-sunny"
+                                        class="text-amber-400 mr-1 align-middle"></iconify-icon>
+                                    08:30 – 10:00
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">IPS</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-300 text-xs">Matematika</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 text-xs">B.
+                                        Indonesia</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">Seni
+                                        Budaya</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-green-500/10 text-green-300 text-xs">B.
+                                        Inggris</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:coffee"
+                                        class="text-orange-400 mr-1 align-middle"></iconify-icon>
+                                    10:00 – 10:15
+                                </td>
+                                <td colspan="5" class="px-4 py-2 text-center text-neutral-600 text-xs italic">—
+                                    Istirahat —</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:white-balance-sunny"
+                                        class="text-yellow-400 mr-1 align-middle"></iconify-icon>
+                                    10:15 – 11:45
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-green-500/10 text-green-300 text-xs">B.
+                                        Inggris</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">IPA</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-300 text-xs">Matematika</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 text-xs">Prakarya</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">IPS</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:white-balance-sunny"
+                                        class="text-yellow-400 mr-1 align-middle"></iconify-icon>
+                                    11:45 – 13:15
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 text-xs">PKN</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-green-500/10 text-green-300 text-xs">PAI</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-green-500/10 text-green-300 text-xs">PJOK</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 text-xs">B.
+                                        Indonesia</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-300 text-xs">Matematika</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-neutral-300 font-medium whitespace-nowrap">
+                                    <iconify-icon icon="mdi:weather-night"
+                                        class="text-blue-400 mr-1 align-middle"></iconify-icon>
+                                    13:15 – 14:45
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">Seni
+                                        Budaya</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 text-xs">Prakarya</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 text-xs">B.
+                                        Inggris</span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 text-xs">IPA</span>
+                                </td>
+                                <td class="px-4 py-3 text-neutral-600 text-xs italic">— Selesai —</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-wrap gap-3 mt-5">
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-indigo-500/30"></span> Matematika
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-cyan-500/30"></span> IPA / IPS
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-purple-500/30"></span> B. Indo / Lainnya
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-green-500/30"></span> B. Inggris / PJOK
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-amber-500/30"></span> PKN / Senbud
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BONUS: FORM LENGKAP ==================== -->
+        <section id="tab-bonus" class="tab-content hidden animate-fade-in-up">
+            <div class="glass-panel rounded-2xl p-6 sm:p-8 glow-purple">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center">
+                        <iconify-icon icon="mdi:star-four-points" class="text-amber-400 text-xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <h2 class="text-lg sm:text-xl font-semibold">BONUS — Form Lengkap</h2>
+                        <p class="text-neutral-500 text-xs">Form Kontak · Berbagai Input · 30 menit</p>
+                    </div>
+                    <span class="ml-auto px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium">⭐
+                        Bonus</span>
+                </div>
+                <div class="w-full h-px bg-gradient-to-r from-amber-500/30 via-transparent to-transparent my-5"></div>
+
+                <form id="formBonus" onsubmit="handleBonus(event)" class="max-w-2xl mx-auto space-y-5">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Nama Lengkap <span
+                                    class="text-red-400">*</span></label>
+                            <input type="text" required class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                placeholder="Nararya Pilar Mahardika">
+                        </div>
+                        <div>
+                            <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Email <span
+                                    class="text-red-400">*</span></label>
+                            <input type="email" required class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                placeholder="nararya@email.com">
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-neutral-500 mb-1.5 block font-medium">No. Telepon</label>
+                            <input type="tel" class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                                placeholder="08xxxxxxxxxx">
+                        </div>
+                        <div>
+                            <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Tanggal Lahir</label>
+                            <input type="date" class="form-input w-full rounded-lg px-4 py-2.5 text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-2.5 block font-medium">Jenis Kelamin</label>
+                        <div class="flex flex-wrap gap-4">
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="radio" name="gender" value="L" class="custom-radio"> Laki-laki
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="radio" name="gender" value="P" class="custom-radio"> Perempuan
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Kota Asal</label>
+                        <select class="form-input w-full rounded-lg px-4 py-2.5 text-sm">
+                            <option value="" class="bg-neutral-900">— Pilih Kota —</option>
+                            <option value="jakarta" class="bg-neutral-900">Jakarta</option>
+                            <option value="bandung" class="bg-neutral-900">Bandung</option>
+                            <option value="surabaya" class="bg-neutral-900">Surabaya</option>
+                            <option value="yogyakarta" class="bg-neutral-900">Yogyakarta</option>
+                            <option value="semarang" class="bg-neutral-900">Semarang</option>
+                            <option value="medan" class="bg-neutral-900">Medan</option>
+                            <option value="makassar" class="bg-neutral-900">Makassar</option>
+                            <option value="lainnya" class="bg-neutral-900">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-2.5 block font-medium">Bidang Minat <span
+                                class="text-neutral-600">(bisa lebih dari satu)</span></label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> Web Development
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> Mobile Dev
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> UI/UX Design
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> Data Science
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> Cyber Security
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm text-neutral-400 cursor-pointer hover:text-neutral-200 transition-colors">
+                                <input type="checkbox" class="custom-check"> Cloud Computing
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Pengalaman Coding (tahun):
+                            <span id="rangeVal" class="text-indigo-400">0</span></label>
+                        <input type="range" min="0" max="10" value="0" class="w-full accent-indigo-500 cursor-pointer"
+                            oninput="document.getElementById('rangeVal').textContent = this.value">
+                        <div class="flex justify-between text-xs text-neutral-600 mt-1">
+                            <span>0 tahun</span>
+                            <span>10 tahun</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Upload Foto (Opsional)</label>
+                        <div class="form-input rounded-lg p-4 text-center cursor-pointer hover:border-indigo-500/30 transition-all"
+                            onclick="document.getElementById('fileInput').click()">
+                            <iconify-icon icon="mdi:cloud-upload" class="text-2xl text-neutral-500 mb-1"></iconify-icon>
+                            <p class="text-xs text-neutral-500" id="fileLabel">Klik untuk memilih file</p>
+                            <p class="text-xs text-neutral-600 mt-0.5">JPG, PNG, max 2MB</p>
+                            <input type="file" id="fileInput" accept="image/*" class="hidden"
+                                onchange="document.getElementById('fileLabel').textContent = this.files[0]?.name || 'Klik untuk memilih file'">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-1.5 block font-medium">LinkedIn / Portofolio</label>
+                        <input type="url" class="form-input w-full rounded-lg px-4 py-2.5 text-sm"
+                            placeholder="https://linkedin.com/in/username">
+                    </div>
+
+                    <div>
+                        <label class="text-xs text-neutral-500 mb-1.5 block font-medium">Pesan / Catatan <span
+                                class="text-red-400">*</span></label>
+                        <textarea required class="form-input w-full rounded-lg px-4 py-2.5 text-sm resize-none" rows="4"
+                            placeholder="Tulis pesan atau catatan tambahan di sini..."></textarea>
+                    </div>
+
+                    <label class="flex items-start gap-2.5 cursor-pointer">
+                        <input type="checkbox" required class="custom-check mt-0.5">
+                        <span class="text-xs text-neutral-500 leading-relaxed">Saya menyetujui <a href="#"
+                                class="text-indigo-400 hover:underline">syarat dan ketentuan</a> serta <a href="#"
+                                class="text-indigo-400 hover:underline">kebijakan privasi</a> yang berlaku. <span
+                                class="text-red-400">*</span></span>
+                    </label>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button type="submit"
+                            class="flex-1 py-3 rounded-xl bg-white text-black text-sm font-medium hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2">
+                            <iconify-icon icon="mdi:send" class="text-base"></iconify-icon>
+                            Kirim Formulir
+                        </button>
+                        <button type="reset"
+                            class="px-6 py-3 rounded-xl border border-white/10 text-neutral-400 text-sm font-medium hover:bg-white/5 transition-all duration-300">
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 pb-8">
+            <p class="text-xs text-neutral-600">Dibuat oleh <span class="text-neutral-400">Nararya Pilar
+                    Mahardika</span> — PKBM Generasi Juara</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast glass-panel rounded-xl flex items-center gap-3">
+        <iconify-icon id="toastIcon" icon="mdi:check-circle" class="text-xl text-green-400"></iconify-icon>
+        <div>
+            <p id="toastTitle" class="text-sm font-medium text-white">Berhasil!</p>
+            <p id="toastMsg" class="text-xs text-neutral-400">Data telah disimpan.</p>
         </div>
     </div>
-    <div class="clear"></div>
-    <div id="Kotak7">
-        <div id="Kotak8">
-            
-        </div>
-        <div id="Kotak8">
 
-        </div>
-        <div  id="Kotak8">
+    <script>
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('tab-' + tabId);
+            target.classList.remove('hidden');
+            target.style.animation = 'none';
+            target.offsetHeight;
+            target.style.animation = '';
+            btn.classList.add('active');
+        }
 
-        </div>
-        <div  id="Kotak8">
+        function showToast(title, msg, icon, iconColor) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMsg').textContent = msg;
+            document.getElementById('toastIcon').setAttribute('icon', icon);
+            document.getElementById('toastIcon').style.color = iconColor || '#4ade80';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
 
-        </div>
-    </div>
+        function handlePR1(e) {
+            e.preventDefault();
+            showToast('Profil Disimpan!', 'Data profil berhasil disimpan.', 'mdi:check-circle', '#4ade80');
+        }
+
+        function handleDownload() {
+            const content = `=== CURRICULUM VITAE ===
+Nama: Nararya Pilar Mahardika
+Kelas: IX
+Sekolah: PKBM Generasi Juara
+Email: nararya.pilar@email.com
+Hobi: Coding, Desain Grafis, Fotografi
+
+=== KEAHLIAN ===
+1. HTML & CSS Dasar
+2. JavaScript Fundamental
+3. Framework Tailwind CSS
+4. Desain UI/UX dengan Figma
+5. Version Control dengan Git
+`;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'CV_Nararya_Pilar_Mahardika.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Download Dimulai!', 'File CV berhasil diunduh.', 'mdi:download', '#818cf8');
+        }
+
+        function handleBonus(e) {
+            e.preventDefault();
+            showToast('Form Terkirim!', 'Terima kasih, data Anda telah diterima.', 'mdi:check-circle', '#4ade80');
+        }
+    </script>
 </body>
+
 </html>
